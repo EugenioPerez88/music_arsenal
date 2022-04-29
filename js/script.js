@@ -1,42 +1,34 @@
-const slider = document.querySelector("#slider-sale");
-let sliderSection = document.querySelectorAll(".sale-slider-section");
-let sliderSectionLast = sliderSection[sliderSection.length - 1];
-const btnLeft = document.querySelector("#btn-left");
-const btnRight = document.querySelector("#btn-right");
+var slideIndex = 1;
+showSlides(slideIndex);
 
-slider.insertAdjacentElement('afterbegin', sliderSectionLast);
-
-function next(){
-	let sliderSectionFirst = document.querySelectorAll(".sale-slider-section")[0];
-	slider.style.marginLeft = "-125%";
-	slider.style.transition = "all 3s ease";
-	setTimeout(function(){
-		slider.style.transition = "none";
-		slider.insertAdjacentElement('beforeend',sliderSectionFirst );
-		slider.style.marginLeft = "-100%";
-	}, 500);
+function plusSlide() {
+  showSlides(slideIndex += 1);
 }
 
-function prev(){
-	let sliderSection = document.querySelectorAll(".sale-slider-section");
-	let sliderSectionLast = sliderSection[sliderSection.length - 1];
-	slider.style.marginLeft = "0";
-	slider.style.transition = "all 3s ease";
-	setTimeout(function(){
-		slider.style.transition = "none";
-		slider.insertAdjacentElement('afterbegin', sliderSectionLast);
-		slider.style.marginLeft = "-100%";
-	}, 500);
+function minusSlide() {
+  showSlides(slideIndex -= 1);  
 }
 
-btnRight.addEventListener('click', function(){
-	next();
-});
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
 
-btnLeft.addEventListener('click', function(){
-	prev();
-});
-
-/*setInterval(function(){
-	next();
-}, 5000);*/
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("parag");
+  var dots = document.getElementsByClassName("noguma-pomoki-kadra");
+  if (n > slides.length) {
+  slideIndex = 1
+  }
+  if (n < 1) {
+  slideIndex = slides.length
+  }
+  for (i = 0; i < slides.length; i++) {
+  slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+  dots[i].className = dots[i].className.replace("deystvuyus", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " deystvuyus";
+}
